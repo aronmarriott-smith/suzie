@@ -26,7 +26,8 @@
   },
   "extra": {
     "installer-paths": {
-      "public/content/plugins/{$name}/": ["type:wordpress-plugin"]
+      "public/content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "public/content/themes/{$name}/": ["type:wordpress-theme"]
     },
     "wordpress-install-dir": "public/wordpress"
   },
