@@ -3,7 +3,7 @@
 namespace Suzie\Sync;
 
 use Aws\S3\S3Client;
-use League\Flysystem\AwsS3v2\AwsS3Adapter;
+use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Sftp\SftpAdapter;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local as Adapter;
@@ -71,10 +71,13 @@ class Basic
     protected function configureFlysystem()
     {
         if (getenv('SYNC') == 's3') {
-            $client = S3Client::factory([
-                'key' => getenv('S3_KEY'),
-                'secret' => getenv('S3_SECRET'),
+            $client = new S3Client([
+                'credentials' => [
+                    'key' => getenv('S3_KEY'),
+                    'secret' => getenv('S3_SECRET'),
+                ],
                 'region' => getenv('S3_REGION'),
+                'version' => getenv('S3_VERSION'),
             ]);
 
             $this->remoteUrl = getenv('S3_URL');
